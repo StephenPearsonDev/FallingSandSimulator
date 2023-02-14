@@ -35,7 +35,7 @@ public class Falling  implements Runnable {
 	}
 	
 	public void update() {
-		
+		grainController.update();
 	}
 	
 	public void render() {
@@ -46,8 +46,15 @@ public class Falling  implements Runnable {
 	public void run() {
 	
 		for(;;) {
-			update();
+			try {
+				Thread.sleep(1);
+				update();
+			} catch(Exception e) {
+				
+			}
+			
 			render();
+			
 		}
 		
 	}

@@ -6,9 +6,9 @@ import java.util.Random;
 
 public class Grain {
 	
-	
+	private int grainSize = 2;
 	private Rectangle grainBounds;
-	private Dimension grainDimension = new Dimension(10,10);
+	private Dimension grainDimension = new Dimension(grainSize,grainSize);
 	private boolean locked = false;
 	private int x;
 	private int y;
@@ -24,13 +24,13 @@ public class Grain {
 	
 	private Random rand;
 	
-	private int grainSize = 10;
+	
 	
 	public Grain(int id, int x) {
 		this.id = id;
-		x = ((x + (10/2)) / 10) * 10;
-		grainBounds = new Rectangle(x,0,10,10);
-		this.x = x / 10;
+		x = ((x + (grainSize/2)) / grainSize) * grainSize;
+		grainBounds = new Rectangle(x,0,grainSize,grainSize);
+		this.x = x / grainSize;
 		y = 0;
 		
 		rand = new Random();

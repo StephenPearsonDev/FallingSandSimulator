@@ -14,6 +14,7 @@ public class WindowPanel extends JPanel implements MouseListener, MouseMotionLis
 	
 	private Dimension d = new Dimension(600,800);
 	private GrainController grainController;
+	private int grainSize = 2;
 	
 	public WindowPanel(GrainController grainController) {
 		this.grainController = grainController;
@@ -28,29 +29,31 @@ public class WindowPanel extends JPanel implements MouseListener, MouseMotionLis
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
 		paintGrid(g);
+		grainController.renderGrains(g);
+		
 		
 	}
 	
 	public void paintGrid(Graphics g) {
-		g.setColor(Color.BLACK);
+		g.setColor(new Color(26,26,26));
 		g.fillRect(0, 0, d.width, d.height);
 		
 		
-		g.setColor(Color.WHITE);
-		//draw horizontal grid lines
-		for(int i = 0; i < d.height/10; i++) {
-			g.drawLine(0, i * 10, d.width, i * 10);
-		}
 		
-		//draw vertical grid lines
-		for(int i = 0; i < d.width/10; i++) {
-			g.drawLine(i*10, 0, i*10, d.height);
-		}
+//		g.setColor(new Color(204,207,171));
+//		//draw horizontal grid lines
+//		for(int i = 0; i < d.height/grainSize; i++) {
+//			g.drawLine(0, i * grainSize, d.width, i * grainSize);
+//		}
+//		
+//		//draw vertical grid lines
+//		for(int i = 0; i < d.width/grainSize; i++) {
+//			g.drawLine(i*grainSize, 0, i*grainSize, d.height);
+//		}
+//		
 		
-		
-		grainController.renderGrains(g);
+
 
 	}
 

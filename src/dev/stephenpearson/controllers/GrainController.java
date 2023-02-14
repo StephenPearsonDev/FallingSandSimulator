@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -19,6 +21,7 @@ import dev.stephenpearson.view.WindowPanel;
 public class GrainController implements ActionListener {
 	
 	private static List<Grain> grainList = new ArrayList<>();
+	private static List<Grain> renderList = new ArrayList<>();
 	private boolean simulatorRunning = false;
 	private Timer timer;
 	private WindowPanel windowPanel;
@@ -31,8 +34,8 @@ public class GrainController implements ActionListener {
 	public GrainController() {
 		screenRect = new Rectangle(0,0,600,800);
 		collisionArray = new CollisionArray();
-		timer= new Timer(1, this);
-		initSimulator();
+		//timer= new Timer(0, this);
+		//initSimulator();
 	
 	}
 	
@@ -40,11 +43,24 @@ public class GrainController implements ActionListener {
 		this.mouseMotionListener = mouseMotionListener;
 	}
 	
+	public void update() {
+	
+			
+		
+		if(grainList.isEmpty()) {
+		
+			makeGrain();
+		}else if(grainList.get(grainCounter-1).getY() >= 0) {			
+			makeGrain();
+		}
+		
+		dropGrain();
+	}
+	
 	public void initSimulator() {
 		if(!simulatorRunning) {
 			simulatorRunning = true;
 			timer.start();
-			
 		}
 	}
 	
@@ -125,11 +141,16 @@ public class GrainController implements ActionListener {
 	
 	public void renderGrains(Graphics g) {
 		//g.setColor(Color.ORANGE);
-		for(Grain gr : grainList) {
+		
+		renderList.addAll(grainList);
+		
+		
+		for(Grain gr : renderList) {
 			g.setColor(gr.getColor());
 			
 			g.fillRect(gr.getRectangle().x, gr.getRectangle().y, gr.getRectangle().width, gr.getRectangle().height);
 		}
+		renderList.removeAll(grainList);
 	}
 
 	@Override
